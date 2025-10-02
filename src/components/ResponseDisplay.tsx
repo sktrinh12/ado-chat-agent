@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import type { FC } from "react";
 import type { ApiResponse } from "../types/api";
 import Tabs from "./Tabs";
 import UrlList from "./UrlList";
