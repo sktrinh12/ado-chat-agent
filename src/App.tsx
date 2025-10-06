@@ -15,10 +15,10 @@ const App: React.FC = () => {
     setResponse(null);
 
     try {
-      const res = await fetch("http://localhost:8000/mock-query", {
+      const res = await fetch("http://localhost:8000/query", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ model: "gemma2:2b", text: question }),
+        body: JSON.stringify({ model: "google/gemma-2-2b-it", text: question }),
       });
       const data: ApiResponse = await res.json();
       setResponse(data);
