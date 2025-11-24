@@ -9,13 +9,15 @@ const App: React.FC = () => {
   const [response, setResponse] = useState<ApiResponse | null>(null);
   const [activeTab, setActiveTab] = useState("answer");
 
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "/api";
+
   const handleSubmit = async () => {
     if (!question.trim()) return;
     setLoading(true);
     setResponse(null);
 
     try {
-      const res = await fetch("http://localhost:8000/query", {
+      const res = await fetch(`${BACKEND_URL}/query`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ model: "google/gemma-2-2b-it", text: question }),
