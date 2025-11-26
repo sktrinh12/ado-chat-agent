@@ -43,13 +43,12 @@ metadata:
   name: frontend-ingress
   namespace: app
   annotations:
-    alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+    cert-manager.io/cluster-issuer: duckdns-letsencrypt-prod
 spec:
-  ingressClassName: alb 
+  ingressClassName: nginx
   rules:
-    - http:
+    - host: www.$DOMAIN_NAME
+      http:
         paths:
           - path: /
             pathType: Prefix
@@ -58,3 +57,29 @@ spec:
                 name: frontend-service
                 port:
                   number: 80
+  tls:
+    - hosts:
+        - www.$DOMAIN_NAME
+      secretName: frontend-tls
+
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: frontend-ingress
+#   namespace: app
+#   annotations:
+#     alb.ingress.kubernetes.io/target-type: ip
+#     alb.ingress.kubernetes.io/scheme: internet-facing
+#     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+# spec:
+#   ingressClassName: alb
+#   rules:
+#     - http:
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: frontend-service
+#                 port:
+#                   number: 80
