@@ -44,10 +44,11 @@ metadata:
   namespace: app
   annotations:
     cert-manager.io/cluster-issuer: duckdns-letsencrypt-prod
+    # cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
   rules:
-    - host: www.$DOMAIN_NAME
+    - host: $DOMAIN_NAME
       http:
         paths:
           - path: /
@@ -59,7 +60,7 @@ spec:
                   number: 80
   tls:
     - hosts:
-        - www.$DOMAIN_NAME
+        - $DOMAIN_NAME
       secretName: frontend-tls
 
 # apiVersion: networking.k8s.io/v1
